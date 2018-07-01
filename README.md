@@ -70,11 +70,7 @@ If you're using Rancher UI for managing Docker containers (the default arrangeme
 
 steamcmd and the app are run in a tmux instance (session "steam"), so running `$ tmux attach` from the container's shell should get you in for maintenance.
 
-<<<<<<< HEAD
 To detach from the tmux session and leave it running, press keys Ctrl+b, then d.
-=======
-To detach from the tmux session and leave it running, press keys Ctrl+b, d.
->>>>>>> bdcf7664d7db92592a6143d192cd6a8abac17cce
 
 ### First-time login
 
