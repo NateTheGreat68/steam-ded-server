@@ -53,8 +53,8 @@ RUN apt-get -y autoremove && \
 # Copy files
 COPY root/ /
 
-# Insallation script
-RUN install_steamcmd.sh
+# Installation script
+RUN su -c "/install_steamcmd.sh" steam
 
 # Define the Docker healthcheck
 HEALTHCHECK --interval=200s --timeout=100s \
