@@ -1,4 +1,6 @@
 #!/usr/bin/with-contenv bash
 #
 
-su -c "tmux new -s $SESSION_NAME '/app_update_and_run.sh'" steam > /dev/null
+id
+
+su -c "tmux new -s $SESSION_NAME '/app_update_and_run.sh'" steam > /dev/null &
