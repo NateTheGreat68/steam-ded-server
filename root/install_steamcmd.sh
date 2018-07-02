@@ -1,6 +1,9 @@
 #!/bin/bash
 #
 
+# Exit when any command fails
+set -e
+
 # Make the directory
 mkdir -p /steam/steamcmd
 
