@@ -4,6 +4,8 @@
 # Exit when any command fails
 set -e
 
+ls -Rl /steam
+
 # Validate the app's files?
 if [ "$VALIDATE_APP" = "always" ]; then 
     VALIDATE="validate"
