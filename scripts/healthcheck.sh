@@ -1,4 +1,4 @@
 #!/bin/bash
 #
 
-exit 0
+tmux ls | grep "${SESSION_NAME}:" > /dev/null || exit 1
