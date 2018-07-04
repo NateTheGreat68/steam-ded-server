@@ -1,19 +1,21 @@
 FROM ubuntu:17.10
 
 # Define some default values for the ENV variables
-ENV TZ "UTC" # should be set at runtime
-ENV APP_ID 0 # should be set at runtime
-ENV STEAM_LOGIN "anonymous"
-ENV STEAMCMD_VARIABLES ""
-ENV STEAM_UID 999
-ENV STEAM_GID 999
-ENV VALIDATE_APP "never"
-ENV APP_EXEC "/app/.app_exec"
-ENV SESSION_NAME "steam"
+ENV TZ="UTC" \
+    APP_ID=0 \
+    STEAM_LOGIN="anonymous" \
+    STEAMCMD_VARIABLES="" \
+    STEAM_UID=999 \
+    STEAM_GID=999 \
+    VALIDATE_APP="never" \
+    APP_EXEC="/app/.app_exec" \
+    SESSION_NAME="steam" \
+    TERM=xterm
 
 # Install necessary packages
 RUN apt-get update && \
     apt-get install -y \
+        tmux \
         lib32stdc++6 \
         ca-certificates
 
@@ -59,4 +61,5 @@ HEALTHCHECK --interval=200s --timeout=100s \
 USER steam
 
 # Run the main command
-CMD /scripts/app_update_and_run.sh
+CMD /usr/bin/script -qc \
+    '/usr/bin/tmux new -s steam /scripts/app_update_and_run.sh'
