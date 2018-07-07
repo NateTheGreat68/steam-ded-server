@@ -57,7 +57,7 @@ If you're using Rancher UI for managing Docker containers (the default arrangeme
         * `<path to or name of steam volume>:/steam`
         * `<path to or name of app volume>:/app`
 1. `Networking` Tab:
-    1. `Network` Recommend leaving as "Managed".
+    1. `Network` Recommend setting to "Host"; I've found that some games won't connect to a LAN server if set to "Managed".
 1. Click the "Create" button, wait for it to start up, and proceed to "Post-Configuration Setup and Maintenance". To easily get to a shell to complete the setup, the `Containers` Tab of the new Service page should have an "Execute Shell" option under `Actions`.
 
 ## Running With Docker Command Line
