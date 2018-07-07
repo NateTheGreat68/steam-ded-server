@@ -16,7 +16,7 @@ else
 fi
 
 # Update the app by building up a steamcmd command
-/steam/steamcmd/steamcmd.sh \
+/steamcmd/steamcmd.sh \
     $STEAMCMD_VARIABLES \
     +login "$STEAM_LOGIN" \
     +force_install_dir /app \

@@ -30,11 +30,14 @@ COPY scripts/ /scripts/
 WORKDIR /scripts
 RUN chown -R root:root . && \
     chmod -R uga+x .
-# /steam directory: create, download steamcmd, and set permis
-WORKDIR /steam/steamcmd
+# /steamcmd directory: create, download steamcmd, and set perms
+WORKDIR /steamcmd
 ADD http://media.steampowered.com/client/steamcmd_linux.tar.gz ./
 RUN tar -xzf steamcmd_linux.tar.gz && \
     rm steamcmd_linux.tar.gz
+RUN chown -R steam:steam . && \
+    chmod -R 775 .
+# /steam directory: create and set perms
 WORKDIR /steam
 RUN chown -R steam:steam . && \
     chmod -R 775 .
@@ -57,9 +60,5 @@ RUN apt-get -y autoremove && \
 HEALTHCHECK --interval=200s --timeout=100s \
     CMD /scripts/healthcheck.sh || exit 1
 
-# Switching user
-USER steam
-
 # Run the main command
-CMD /usr/bin/script -qc \
-    '/usr/bin/tmux new -s steam /scripts/app_update_and_run.sh' /dev/null
+CMD /scripts/run.sh
