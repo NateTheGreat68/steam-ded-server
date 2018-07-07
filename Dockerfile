@@ -62,4 +62,4 @@ USER steam
 
 # Run the main command
 CMD /usr/bin/script -qc \
-    '/usr/bin/tmux new -s steam /scripts/app_update_and_run.sh'
+    '/usr/bin/tmux new -s steam /scripts/app_update_and_run.sh' /dev/null
