@@ -68,7 +68,7 @@ If you're using Rancher UI for managing Docker containers (the default arrangeme
 
 ### Getting to the shell (attaching to tmux)
 
-steamcmd and the app are run in a tmux instance (session "steam") that belongs to the steam user, but the shell will login as the root user by default, so running `$ su -c 'tmux attach' steam` from the container's shell should get you in for maintenance.
+steamcmd and the app are run in a tmux instance (session "steam") that belongs to the steam user, but the shell will login as the root user by default, so running `# su -c 'tmux attach' steam` (or the shortcut alias `# steam`) from the container's shell should get you in for maintenance.
 
 To detach from the tmux session and leave it running, press keys Ctrl+b, then d.
 

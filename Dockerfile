@@ -46,6 +46,9 @@ WORKDIR /app
 RUN chown -R steam:steam . && \
     chmod -R 775 .
 
+# add an alias to get to the tmux session
+RUN echo "alias steam=\"su -c 'tmux attach' steam\"" >> /root/.bashrc
+
 # Define the volumes
 VOLUME /app /steam
 
