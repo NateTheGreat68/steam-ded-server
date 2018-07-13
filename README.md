@@ -63,7 +63,22 @@ If you're using Rancher UI for managing Docker containers (the default arrangeme
 
 ## Running With Docker Command Line
 
-*to do*
+For parameters, environment variables, etc., see the section "Configuring with Rancher UI" above.
+
+The recommended way to run a container from the command line is:
+
+```shell
+docker run \
+    -d
+    --name="<container_name>" \
+    --network=host \
+    -e TZ="<timezone>" \
+    -e APP_ID="<app_id>" \
+    [-e "<other_environment_variables_as_needed>"...] \
+    -v "<steam_volume>:/steam" \
+    -v "<app_volume>:/app" \
+    natethegreat68/steam-ded-server:latest
+```
 
 ## Post-Configuration Setup and Maintenance
 
