@@ -8,9 +8,10 @@ ENV TZ="UTC" \
     STEAM_UID=999 \
     STEAM_GID=999 \
     VALIDATE_APP="never" \
-    APP_EXEC="/app/.app_exec" \
+    APP_EXEC=".app_exec" \
     SESSION_NAME="steam" \
-    TERM=xterm
+    TERM=xterm \
+    APP_DIR=""
 
 # Install necessary packages
 RUN apt-get update && \

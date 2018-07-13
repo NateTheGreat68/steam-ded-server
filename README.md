@@ -51,7 +51,8 @@ If you're using Rancher UI for managing Docker containers (the default arrangeme
         * `STEAM_UID` Optional; default is 999. The UID for the steam user.
         * `STEAM_GID` Optional; defualt is 999. The GID for the steam user's group.
         * `VALIDATE_APP` Optional; default is "never". Choices are "never", "once", "always". Determines whether to run file validation after updating; this can sometimes overwrite configuration files, so use at your own risk.
-        * `APP_EXEC` Optional; default is "/app/.app_exec". This can be the executable server file, a bash script, or anything else executable. `/app/.app_exec` will not exist by default, so it can be symlinked to the server executable or shell script (useful if you don't know the exact filepath to execute when setting up the container).
+        * `APP_DIR` Optional; default is "". This is a subdirectory of "/app" if given as a relative path, or taken absolutely otherwise. It is where the app will be stored.
+        * `APP_EXEC` Optional; default is ".app_exec"; will be parsed to "$APP_DIR/$APP_EXEC" if given as a relative path, or taken absolutely otherwise. This can be the executable server file, a bash script, or anything else executable. The file will not exist by default, so it can be symlinked to the server executable or shell script (useful if you don't know the exact filepath to execute when setting up the container).
 1. `Volumes` Tab:
     1. `Volumes` Add two volumes:
         * `<path to or name of steam volume>:/steam`
@@ -80,12 +81,12 @@ If you specified a login username and this is your first login, you'll have to s
 
 If you did not specify an app to exec with the `APP_EXEC` environment variable, you have three choices:
 * Go back and alter the container's configuration so that `APP_EXEC` now specifies the file to execute.
-* Make `/app/.app_exec` a symlink that points to the executable: `$ ln -s <path_to_executable> /app/.app_exec`.
-* Make `/app/.app_exec` a shell script that eventually launches the server.
+* Make `$APP_DIR/.app_exec` a symlink that points to the executable: `$ ln -s <path_to_executable> $APP_DIR/.app_exec`.
+* Make `$APP_DIR/.app_exec` a shell script that eventually launches the server.
 
 ### Validation of games files
 
-Validation of games files is handled by the value of the `VALIDATE_APP` environment variable and the presence of two files in the volume mounted on /app:
+Validation of games files is handled by the value of the `VALIDATE_APP` environment variable and the presence of two files in `"$APP_DIR"`:
 * If `VALIDATE_APP` is "always", then the app's files will be validated every time the container is run.
-* If `VALIDATE_APP` is "once" and the file `/app/.validated` does not exist, the files will be validated the next time the container is run and the `/app/.validated` file will be created so they're not validated next time. Deleting the file manually will result in the files being validated on the next run.
-* If `VALIDATE_APP` is "never" (the default choice) and the file `/app/.validate_once` exists, the files will be validated the next time the container is run and the `/app/.validate_once` file will be deleted so they aren't validated every time.
+* If `VALIDATE_APP` is "once" and the file `"$APP_DIR/.validated"` does not exist, the files will be validated the next time the container is run and the `"$APP_DIR/.validated"` file will be created so they're not validated next time. Deleting the file manually will result in the files being validated on the next run.
+* If `VALIDATE_APP` is "never" (the default choice) and the file `"$APP_DIR/.validate_once"` exists, the files will be validated the next time the container is run and the `"$APP_DIR/.validate_once"` file will be deleted so they aren't validated every time.

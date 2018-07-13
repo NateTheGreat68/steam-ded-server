@@ -4,9 +4,9 @@
 # Validate the app's files?
 if [ "$VALIDATE_APP" = "always" ]; then 
     VALIDATE="validate"
-elif [ "$VALIDATE_APP" = "once" ] && [ ! -f /app/.validated ]; then
+elif [ "$VALIDATE_APP" = "once" ] && [ ! -f "$APP_DIR/.validated" ]; then
     VALIDATE="validate"
-elif [ "$VALIDATE_APP" = "never" ] && [ -f /app/.validate_once ]; then
+elif [ "$VALIDATE_APP" = "never" ] && [ -f "$APP_DIR/.validate_once" ]; then
     VALIDATE="validate"
 else
     VALIDATE=""
@@ -19,7 +19,7 @@ while : ; do
     /steamcmd/steamcmd.sh \
         $STEAMCMD_VARIABLES \
         +login "$STEAM_LOGIN" \
-        +force_install_dir /app \
+        +force_install_dir "$APP_DIR" \
         +app_update $APP_ID $VALIDATE \
         +quit
     retval=$?
@@ -48,10 +48,11 @@ done
 
 # Handle the validation files
 if [ "$VALIDATE_APP" = "once" ]; then
-    touch /app/.validated || exit $?
-elif [ "$VALIDATE_APP" = "never" ] && [ -f /app/.validate_once ]; then
-    rm /app/.validate_once || exit $?
+    touch "$APP_DIR/.validated" || exit $?
+elif [ "$VALIDATE_APP" = "never" ] && [ -f "$APP_DIR/.validate_once" ]; then
+    rm "$APP_DIR/.validate_once" || exit $?
 fi
 
 # Run the thing!
-$APP_EXEC || exit $?
+cd "$APP_DIR"
+"$APP_EXEC" ; sleep 15
